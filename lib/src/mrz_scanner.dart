@@ -22,10 +22,20 @@ class MRZScanner extends StatefulWidget {
 class MRZScannerState extends State<MRZScanner> {
   final TextRecognizer _textRecognizer = TextRecognizer();
   bool _canProcess = true;
-  bool _isBusy = false;
+  bool _isBusy = true;
   List result = [];
 
   void resetScanning() => _isBusy = false;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(seconds: 1), () {
+        _isBusy = false;
+        setState(() {});
+      });
+    });
+  }
 
   @override
   void dispose() async {
