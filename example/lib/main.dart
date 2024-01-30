@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mrz_scanner/mrz_scanner.dart';
 
@@ -19,6 +21,7 @@ class _MyAppState extends State<MyApp> {
       home: Builder(builder: (context) {
         return MRZScanner(
           controller: controller,
+          onError: (err) => log(err ?? ''),
           onSuccess: (mrzResult, lines) async {
             await showDialog(
               context: context,
