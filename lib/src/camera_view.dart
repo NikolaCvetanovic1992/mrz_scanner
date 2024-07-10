@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'camera_overlay.dart';
 
@@ -113,6 +114,7 @@ class _MRZCameraViewState extends State<MRZCameraView> {
       ResolutionPreset.high,
       enableAudio: false,
     );
+    _controller?.lockCaptureOrientation(DeviceOrientation.portraitUp);
     _controller?.initialize().then((_) {
       if (!mounted) {
         return;
