@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mrz_scanner/mrz_scanner.dart';
 
 Future<void> main() async {

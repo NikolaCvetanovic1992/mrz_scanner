@@ -114,11 +114,11 @@ class _MRZCameraViewState extends State<MRZCameraView> {
       ResolutionPreset.high,
       enableAudio: false,
     );
-    _controller?.lockCaptureOrientation(DeviceOrientation.portraitUp);
-    _controller?.initialize().then((_) {
+    _controller?.initialize().then((_) async {
       if (!mounted) {
         return;
       }
+      await _controller?.lockCaptureOrientation(DeviceOrientation.portraitUp);
 
       _controller?.startImageStream(_processCameraImage);
       setState(() {});
