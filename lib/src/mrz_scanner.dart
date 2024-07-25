@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:mrz_scanner/mrz_scanner.dart';
@@ -85,9 +83,6 @@ class MRZScannerState extends State<MRZScanner> {
       }
     }
     List<String>? result = MRZHelper.getFinalListToParse([...ableToScanText]);
-
-    log('Result: ${result.toString()}');
-    log('PrevResult: ${_prevResult.toString()}');
 
     if (result == null) {
       _isBusy = false;
