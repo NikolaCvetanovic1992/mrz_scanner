@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +121,8 @@ class _MRZCameraViewState extends State<MRZCameraView> {
         return;
       }
       await _controller?.lockCaptureOrientation(DeviceOrientation.portraitUp);
+
+      await _controller!.setFocusMode(FocusMode.auto);
 
       _controller?.startImageStream(_processCameraImage);
       setState(() {});

@@ -24,6 +24,15 @@ class _MyAppState extends State<MyApp> {
           controller: controller,
           onError: (err) => log(err ?? ''),
           onSuccess: (mrzResult, lines) async {
+            // log(lines.toString());
+            // log(mrzResult.givenNames);
+            // log(mrzResult.surnames);
+            // log(mrzResult.sex.toString());
+            // log(mrzResult.countryCode);
+            // log(mrzResult.nationalityCountryCode);
+            // log(mrzResult.documentNumber);
+            // log(mrzResult.documentType);
+
             await showDialog(
               context: context,
               builder: (context) => Dialog(

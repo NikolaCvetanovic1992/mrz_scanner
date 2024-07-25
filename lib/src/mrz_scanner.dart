@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:mrz_scanner/mrz_scanner.dart';
@@ -25,17 +27,15 @@ class MRZScannerState extends State<MRZScanner> {
   final TextRecognizer _textRecognizer = TextRecognizer();
   bool _canProcess = true;
   bool _isBusy = true;
-  List result = [];
+  List _prevResult = [];
 
   void resetScanning() => _isBusy = false;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(seconds: 1), () {
-        _isBusy = false;
-        setState(() {});
-      });
+      _isBusy = false;
+      setState(() {});
     });
   }
 
@@ -86,10 +86,30 @@ class MRZScannerState extends State<MRZScanner> {
     }
     List<String>? result = MRZHelper.getFinalListToParse([...ableToScanText]);
 
-    if (result != null) {
-      _parseScannedText([...result]);
+    log('Result: ${result.toString()}');
+    log('PrevResult: ${_prevResult.toString()}');
+
+    if (result == null) {
+      _isBusy = false;
+      return;
+    }
+
+    if (_prevResult.isNotEmpty && result.isNotEmpty) {
+      if (_prevResult.toString() == result.toString()) {
+        _parseScannedText([...result]);
+      } else {
+        _prevResult = result;
+        _isBusy = false;
+      }
     } else {
+      _prevResult = result;
       _isBusy = false;
     }
+
+    // if (result != null) {
+    //   _parseScannedText([...result]);
+    // } else {
+    //   _isBusy = false;
+    // }
   }
 }
